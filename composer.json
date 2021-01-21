@@ -1,0 +1,53 @@
+{
+    "name": "phalconvee/laravel-paga",
+    "description": "Paga has made it very easy for businesses to accept payments.This Business Service Library is a Laravel/PHP module that helps you make API calls when processing Paga Business Transactions.",
+    "keywords": [
+        "phalconvee",
+        "laravel-paga"
+    ],
+    "homepage": "https://github.com/phalconvee/laravel-paga",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Henry Ugochukwu",
+            "email": "phalconvee@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "illuminate/support": "^6|^7|^8|^9",
+        "guzzlehttp/guzzle": "^7.0.1"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0",
+        "phpunit/phpunit": "^6|^7|^8"
+    },
+    "autoload": {
+        "files": [
+            "src/Helpers/utils.php"
+        ],
+        "psr-4": {
+            "Phalconvee\\Paga\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Phalconvee\\Paga\\Tests\\": "tests"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Phalconvee\\Paga\\PagaServiceProvider"
+            ],
+            "aliases": {
+                "Paga": "Phalconvee\\Paga\\Facades\\Paga"
+            }
+        }
+    }
+}

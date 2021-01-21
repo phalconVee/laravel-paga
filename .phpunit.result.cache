@@ -1,0 +1,1 @@
+C:37:"PHPUnit\Runner\DefaultTestResultCache":181:{a:2:{s:7:"defects";a:0:{}s:5:"times";a:2:{s:62:"Phalconvee\Paga\Tests\HelpersTest::it_returns_instance_of_paga";d:0.035;s:44:"Phalconvee\Paga\Tests\PagaTest::true_is_true";d:0.15;}}}
