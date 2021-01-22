@@ -34,12 +34,12 @@ class GuzzleRequestService
     {
         $this->client = new Client([
             'base_uri' => $base_url,
-            'headers' => [
+            'headers'  => [
                 'Content-Type' => 'application/json',
-                'Accept' => 'application/json',
-                'hash' => $hash,
-                'principal' => $publicKey,
-                'credentials' => $secretKey,
+                'Accept'       => 'application/json',
+                'hash'         => $hash,
+                'principal'    => $publicKey,
+                'credentials'  => $secretKey,
             ],
         ]);
     }
@@ -50,9 +50,11 @@ class GuzzleRequestService
      * @param $method
      * @param $url
      * @param null $body
-     * @return mixed|\Psr\Http\Message\ResponseInterface|null
+     *
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws IsNullException
+     *
+     * @return mixed|\Psr\Http\Message\ResponseInterface|null
      */
     public function makeHttpRequest($method, $url, $body = null)
     {
@@ -80,8 +82,10 @@ class GuzzleRequestService
      *
      * @param $url
      * @param array $body
-     * @return \Psr\Http\Message\ResponseInterface
+     *
      * @throws \GuzzleHttp\Exception\GuzzleException
+     *
+     * @return \Psr\Http\Message\ResponseInterface
      */
     private function doGet($url, $body = [])
     {
@@ -95,8 +99,10 @@ class GuzzleRequestService
      *
      * @param $url
      * @param $body
-     * @return \Psr\Http\Message\ResponseInterface
+     *
      * @throws \GuzzleHttp\Exception\GuzzleException
+     *
+     * @return \Psr\Http\Message\ResponseInterface
      */
     private function doPost($url, $body)
     {
@@ -110,8 +116,10 @@ class GuzzleRequestService
      *
      * @param $url
      * @param $body
-     * @return \Psr\Http\Message\ResponseInterface
+     *
      * @throws GuzzleException
+     *
+     * @return \Psr\Http\Message\ResponseInterface
      */
     private function doPostRaw($url, $body)
     {
@@ -125,8 +133,10 @@ class GuzzleRequestService
      *
      * @param $url
      * @param $multipart
-     * @return \Psr\Http\Message\ResponseInterface
+     *
      * @throws \GuzzleHttp\Exception\GuzzleException
+     *
+     * @return \Psr\Http\Message\ResponseInterface
      */
     private function doMultiPart($url, $multipart)
     {

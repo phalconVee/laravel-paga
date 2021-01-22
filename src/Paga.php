@@ -18,30 +18,35 @@ class Paga
 {
     /**
      * Issue API Key from your Paga Dashboard.
+     *
      * @var string
      */
     protected $apiKey;
 
     /**
      * Issue Public Key from your Paga Dashboard.
+     *
      * @var string
      */
     protected $publicKey;
 
     /**
      * Issue Password from your Paga Dashboard.
+     *
      * @var string
      */
     protected $secretKey;
 
     /**
      * Set Server URL (e.g true = Use Test URL, false = Use Live URL).
+     *
      * @var string
      */
     protected $url;
 
     /**
      *  Response from requests made to Paga.
+     *
      * @var mixed
      */
     protected $response;
@@ -104,6 +109,7 @@ class Paga
      * Set Service for making the Client request.
      *
      * @param $hash
+     *
      * @return GuzzleRequestService
      */
     private function setRequestService($hash)
@@ -179,7 +185,7 @@ class Paga
     public function getMerchantServices()
     {
         $body = [
-            'referenceNumber' => request()->reference,
+            'referenceNumber'  => request()->reference,
             'merchantPublicId' => request()->merchantPublicId,
         ];
 
@@ -255,11 +261,11 @@ class Paga
     public function registerCustomer()
     {
         $body = [
-            'referenceNumber' => request()->reference,
+            'referenceNumber'     => request()->reference,
             'customerPhoneNumber' => request()->customerPhoneNumber,
-            'customerFirstName' => request()->customerFirstName,
-            'customerLastName' => request()->customerLastName,
-            'customerEmail' => request()->customerEmail,
+            'customerFirstName'   => request()->customerFirstName,
+            'customerLastName'    => request()->customerLastName,
+            'customerEmail'       => request()->customerEmail,
             'customerDateOfBirth' => request()->customerDateOfBirth,
         ];
 
@@ -290,19 +296,19 @@ class Paga
     public function moneyTransfer()
     {
         $body = [
-            'referenceNumber' => request()->reference,
-            'amount' => request()->amount,
-            'destinationAccount' => request()->destinationAccount,
-            'senderPrincipal' => request()->senderPrincipal,
-            'senderCredentials' => request()->senderCredentials,
-            'currency' => request()->currency,
-            'destinationBank' => request()->destinationBank,
-            'sendWithdrawalCode' => (request()->sendWithdrawalCode) ? request()->sendWithdrawalCode : null,
-            'transferReference' => (request()->transferReference) ? request()->transferReference : null,
+            'referenceNumber'          => request()->reference,
+            'amount'                   => request()->amount,
+            'destinationAccount'       => request()->destinationAccount,
+            'senderPrincipal'          => request()->senderPrincipal,
+            'senderCredentials'        => request()->senderCredentials,
+            'currency'                 => request()->currency,
+            'destinationBank'          => request()->destinationBank,
+            'sendWithdrawalCode'       => (request()->sendWithdrawalCode) ? request()->sendWithdrawalCode : null,
+            'transferReference'        => (request()->transferReference) ? request()->transferReference : null,
             'suppressRecipientMessage' => (request()->suppressRecipientMessage) ? true : false,
-            'alternateSenderName' => (request()->alternateSenderName) ? request()->alternateSenderName : null,
-            'minRecipientKYCLevel' => (request()->minRecipientKYCLevel) ? request()->minRecipientKYCLevel : null,
-            'holdingPeriod' => (request()->holdingPeriod) ? request()->holdingPeriod : null,
+            'alternateSenderName'      => (request()->alternateSenderName) ? request()->alternateSenderName : null,
+            'minRecipientKYCLevel'     => (request()->minRecipientKYCLevel) ? request()->minRecipientKYCLevel : null,
+            'holdingPeriod'            => (request()->holdingPeriod) ? request()->holdingPeriod : null,
         ];
 
         $hash = createHash($this->apiKey, [
@@ -332,7 +338,7 @@ class Paga
     {
         $body = [
             'bulkReferenceNumber' => request()->bulkReferenceNumber,
-            'items' => request()->moneyTransferItems,
+            'items'               => request()->moneyTransferItems,
         ];
 
         $hash = createHash($this->apiKey, [
@@ -362,8 +368,8 @@ class Paga
     public function airtimePurchase()
     {
         $body = [
-            'referenceNumber' => request()->reference,
-            'amount' => request()->amount,
+            'referenceNumber'        => request()->reference,
+            'amount'                 => request()->amount,
             'destinationPhoneNumber' => request()->destinationPhoneNumber,
         ];
 
@@ -414,12 +420,12 @@ class Paga
     public function depositToBank()
     {
         $body = [
-            'referenceNumber' => request()->reference,
-            'amount' => request()->amount,
-            'destinationBankUUID' => request()->destinationBankUUID,
+            'referenceNumber'              => request()->reference,
+            'amount'                       => request()->amount,
+            'destinationBankUUID'          => request()->destinationBankUUID,
             'destinationBankAccountNumber' => request()->destinationBankAccountNumber,
-            'recipientPhoneNumber' => request()->recipientPhoneNumber,
-            'currency' => request()->currency,
+            'recipientPhoneNumber'         => request()->recipientPhoneNumber,
+            'currency'                     => request()->currency,
         ];
 
         $hash = createHash($this->apiKey, [
@@ -449,9 +455,9 @@ class Paga
     public function validateDepositToBank()
     {
         $body = [
-            'referenceNumber' => request()->reference,
-            'amount' => request()->amount,
-            'destinationBankUUID' => request()->destinationBankUUID,
+            'referenceNumber'              => request()->reference,
+            'amount'                       => request()->amount,
+            'destinationBankUUID'          => request()->destinationBankUUID,
             'destinationBankAccountNumber' => request()->destinationBankAccountNumber,
         ];
 
@@ -477,12 +483,12 @@ class Paga
     public function merchantPayment()
     {
         $body = [
-            'referenceNumber' => request()->reference,
-            'amount' => request()->amount,
-            'merchantAccount' => request()->merchantAccount,
+            'referenceNumber'         => request()->reference,
+            'amount'                  => request()->amount,
+            'merchantAccount'         => request()->merchantAccount,
             'merchantReferenceNumber' => request()->merchantReferenceNumber,
-            'currency' => request()->currency,
-            'merchantService' => request()->merchantService,
+            'currency'                => request()->currency,
+            'merchantService'         => request()->merchantService,
         ];
 
         $hash = createHash($this->apiKey, [
@@ -564,10 +570,10 @@ class Paga
     public function onBoardMerchant()
     {
         $body = [
-            'reference' => request()->reference,
+            'reference'          => request()->reference,
             'merchantExternalId' => request()->merchantExternalId,
-            'merchantInfo' => request()->merchantInfo,
-            'integration' => request()->integration,
+            'merchantInfo'       => request()->merchantInfo,
+            'integration'        => request()->integration,
         ];
 
         $hash = createHash($this->apiKey, [
@@ -595,7 +601,7 @@ class Paga
     public function validateCustomer()
     {
         $body = [
-            'referenceNumber' => request()->reference,
+            'referenceNumber'    => request()->reference,
             'customerIdentifier' => request()->customerIdentifier,
         ];
 
