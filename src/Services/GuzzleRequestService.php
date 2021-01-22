@@ -39,8 +39,8 @@ class GuzzleRequestService
                 'Accept' => 'application/json',
                 'hash' => $hash,
                 'principal' => $publicKey,
-                'credentials' => $secretKey
-            ]
+                'credentials' => $secretKey,
+            ],
         ]);
     }
 
@@ -58,18 +58,20 @@ class GuzzleRequestService
     {
         $response = null;
 
-        if (is_null($method))
-            throw new isNullException("Empty Method Not Allowed");
+        if (is_null($method)) {
+            throw new isNullException('Empty Method Not Allowed');
+        }
 
         if ($method == 'GET') {
             $response = $this->doGet($url, $body);
-        } else if ($method == 'POST') {
+        } elseif ($method == 'POST') {
             $response = $this->doPostRaw($url, $body);
-        } else if ($method == 'MULTIPART') {
+        } elseif ($method == 'MULTIPART') {
             $response = $this->doMultiPart($url, $body);
         }
 
         $response = json_decode($response->getBody(), true);
+
         return $response;
     }
 
@@ -84,7 +86,7 @@ class GuzzleRequestService
     private function doGet($url, $body = [])
     {
         return $this->client->request('GET', $url, [
-            'query' => $body
+            'query' => $body,
         ]);
     }
 
@@ -99,7 +101,7 @@ class GuzzleRequestService
     private function doPost($url, $body)
     {
         return $this->client->request('POST', $url, [
-            'form_params' => $body
+            'form_params' => $body,
         ]);
     }
 
@@ -114,9 +116,10 @@ class GuzzleRequestService
     private function doPostRaw($url, $body)
     {
         return $this->client->request('POST', $url, [
-            'body' => json_encode($body)
+            'body' => json_encode($body),
         ]);
     }
+
     /**
      *  Make Multipart Client Request.
      *

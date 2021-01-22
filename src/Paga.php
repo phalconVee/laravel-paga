@@ -12,7 +12,6 @@
 namespace Phalconvee\Paga;
 
 use GuzzleHttp\Exception\GuzzleException;
-use Phalconvee\Paga\Exceptions\PagaException;
 use Phalconvee\Paga\Services\GuzzleRequestService;
 
 class Paga
@@ -50,12 +49,12 @@ class Paga
     /**
      * Define Live API URL.
      */
-    const LIVE_API_URL = "https://www.mypaga.com";
+    const LIVE_API_URL = 'https://www.mypaga.com';
 
     /**
      * Define Test API url.
      */
-    const TEST_API_URL = "https://beta.mypaga.com";
+    const TEST_API_URL = 'https://beta.mypaga.com';
 
     /**
      * Paga constructor.
@@ -72,7 +71,7 @@ class Paga
      */
     private function setApiKey()
     {
-        $this->apiKey = config("paga.apiKey");
+        $this->apiKey = config('paga.apiKey');
     }
 
     /**
@@ -80,7 +79,7 @@ class Paga
      */
     private function setPublicKey()
     {
-        $this->publicKey = config("paga.publicKey");
+        $this->publicKey = config('paga.publicKey');
     }
 
     /**
@@ -88,7 +87,7 @@ class Paga
      */
     private function setSecretKey()
     {
-        $this->secretKey = config("paga.secretKey");
+        $this->secretKey = config('paga.secretKey');
     }
 
     /**
@@ -96,7 +95,7 @@ class Paga
      *
      * @param bool $test
      */
-    public function setTest($test=false)
+    public function setTest($test = false)
     {
         $this->url = ($test) ? self::TEST_API_URL : self::LIVE_API_URL;
     }
@@ -130,16 +129,16 @@ class Paga
     public function getBanks()
     {
         $body = [
-            "referenceNumber" => request()->reference
+            'referenceNumber' => request()->reference,
         ];
 
         $hash = createHash($this->apiKey, $body);
 
-        $endpoint = "paga-webservices/business-rest/secured/getBanks";
+        $endpoint = 'paga-webservices/business-rest/secured/getBanks';
 
         try {
             return $this->setRequestService($hash)
-                ->makeHttpRequest("POST", $endpoint, $body);
+                ->makeHttpRequest('POST', $endpoint, $body);
         } catch (GuzzleException $e) {
             return $e->getMessage();
         } catch (Exceptions\IsNullException $e) {
@@ -155,16 +154,16 @@ class Paga
     public function getMerchants()
     {
         $body = [
-            "referenceNumber" => request()->reference
+            'referenceNumber' => request()->reference,
         ];
 
         $hash = createHash($this->apiKey, $body);
 
-        $endpoint = "paga-webservices/business-rest/secured/getMerchants";
+        $endpoint = 'paga-webservices/business-rest/secured/getMerchants';
 
         try {
             return $this->setRequestService($hash)
-                ->makeHttpRequest("POST", $endpoint, $body);
+                ->makeHttpRequest('POST', $endpoint, $body);
         } catch (GuzzleException $e) {
             return $e->getMessage();
         } catch (Exceptions\IsNullException $e) {
@@ -180,17 +179,17 @@ class Paga
     public function getMerchantServices()
     {
         $body = [
-            "referenceNumber" => request()->reference,
-            "merchantPublicId" => request()->merchantPublicId
+            'referenceNumber' => request()->reference,
+            'merchantPublicId' => request()->merchantPublicId,
         ];
 
         $hash = createHash($this->apiKey, $body);
 
-        $endpoint = "paga-webservices/business-rest/secured/getMerchantServices";
+        $endpoint = 'paga-webservices/business-rest/secured/getMerchantServices';
 
         try {
             return $this->setRequestService($hash)
-                ->makeHttpRequest("POST", $endpoint, $body);
+                ->makeHttpRequest('POST', $endpoint, $body);
         } catch (GuzzleException $e) {
             return $e->getMessage();
         } catch (Exceptions\IsNullException $e) {
@@ -206,16 +205,16 @@ class Paga
     public function getOperationStatus()
     {
         $body = [
-            "referenceNumber" => request()->reference
+            'referenceNumber' => request()->reference,
         ];
 
         $hash = createHash($this->apiKey, $body);
 
-        $endpoint = "paga-webservices/business-rest/secured/getOperationStatus";
+        $endpoint = 'paga-webservices/business-rest/secured/getOperationStatus';
 
         try {
             return $this->setRequestService($hash)
-                ->makeHttpRequest("POST", $endpoint, $body);
+                ->makeHttpRequest('POST', $endpoint, $body);
         } catch (GuzzleException $e) {
             return $e->getMessage();
         } catch (Exceptions\IsNullException $e) {
@@ -231,16 +230,16 @@ class Paga
     public function getMobileOperators()
     {
         $body = [
-            "referenceNumber" => request()->reference
+            'referenceNumber' => request()->reference,
         ];
 
         $hash = createHash($this->apiKey, $body);
 
-        $endpoint = "paga-webservices/business-rest/secured/getMobileOperators";
+        $endpoint = 'paga-webservices/business-rest/secured/getMobileOperators';
 
         try {
             return $this->setRequestService($hash)
-                ->makeHttpRequest("POST", $endpoint, $body);
+                ->makeHttpRequest('POST', $endpoint, $body);
         } catch (GuzzleException $e) {
             return $e->getMessage();
         } catch (Exceptions\IsNullException $e) {
@@ -256,26 +255,26 @@ class Paga
     public function registerCustomer()
     {
         $body = [
-            "referenceNumber" => request()->reference,
-            "customerPhoneNumber" => request()->customerPhoneNumber,
-            "customerFirstName" => request()->customerFirstName,
-            "customerLastName" => request()->customerLastName,
-            "customerEmail" => request()->customerEmail,
-            "customerDateOfBirth" => request()->customerDateOfBirth,
+            'referenceNumber' => request()->reference,
+            'customerPhoneNumber' => request()->customerPhoneNumber,
+            'customerFirstName' => request()->customerFirstName,
+            'customerLastName' => request()->customerLastName,
+            'customerEmail' => request()->customerEmail,
+            'customerDateOfBirth' => request()->customerDateOfBirth,
         ];
 
         $hash = createHash($this->apiKey, [
-            $body["referenceNumber"],
-            $body["customerPhoneNumber"],
-            $body["customerFirstName"],
-            $body["customerLastName"]
+            $body['referenceNumber'],
+            $body['customerPhoneNumber'],
+            $body['customerFirstName'],
+            $body['customerLastName'],
         ]);
 
-        $endpoint = "paga-webservices/business-rest/secured/registerCustomer";
+        $endpoint = 'paga-webservices/business-rest/secured/registerCustomer';
 
         try {
             return $this->setRequestService($hash)
-                ->makeHttpRequest("POST", $endpoint, $body);
+                ->makeHttpRequest('POST', $endpoint, $body);
         } catch (GuzzleException $e) {
             return $e->getMessage();
         } catch (Exceptions\IsNullException $e) {
@@ -291,32 +290,32 @@ class Paga
     public function moneyTransfer()
     {
         $body = [
-            "referenceNumber" => request()->reference,
-            "amount" => request()->amount,
-            "destinationAccount" => request()->destinationAccount,
-            "senderPrincipal" => request()->senderPrincipal,
-            "senderCredentials" => request()->senderCredentials,
-            "currency" => request()->currency,
-            "destinationBank" => request()->destinationBank,
-            "sendWithdrawalCode" => (request()->sendWithdrawalCode) ? request()->sendWithdrawalCode : null,
-            "transferReference" => (request()->transferReference) ? request()->transferReference : null,
-            "suppressRecipientMessage" => (request()->suppressRecipientMessage) ? true : false,
-            "alternateSenderName" => (request()->alternateSenderName) ? request()->alternateSenderName : null,
-            "minRecipientKYCLevel" => (request()->minRecipientKYCLevel) ? request()->minRecipientKYCLevel : null,
-            "holdingPeriod" => (request()->holdingPeriod) ? request()->holdingPeriod : null,
+            'referenceNumber' => request()->reference,
+            'amount' => request()->amount,
+            'destinationAccount' => request()->destinationAccount,
+            'senderPrincipal' => request()->senderPrincipal,
+            'senderCredentials' => request()->senderCredentials,
+            'currency' => request()->currency,
+            'destinationBank' => request()->destinationBank,
+            'sendWithdrawalCode' => (request()->sendWithdrawalCode) ? request()->sendWithdrawalCode : null,
+            'transferReference' => (request()->transferReference) ? request()->transferReference : null,
+            'suppressRecipientMessage' => (request()->suppressRecipientMessage) ? true : false,
+            'alternateSenderName' => (request()->alternateSenderName) ? request()->alternateSenderName : null,
+            'minRecipientKYCLevel' => (request()->minRecipientKYCLevel) ? request()->minRecipientKYCLevel : null,
+            'holdingPeriod' => (request()->holdingPeriod) ? request()->holdingPeriod : null,
         ];
 
         $hash = createHash($this->apiKey, [
-            $body["referenceNumber"],
-            $body["amount"],
-            $body["destinationAccount"]
+            $body['referenceNumber'],
+            $body['amount'],
+            $body['destinationAccount'],
         ]);
 
-        $endpoint = "paga-webservices/business-rest/secured/moneyTransfer";
+        $endpoint = 'paga-webservices/business-rest/secured/moneyTransfer';
 
         try {
             return $this->setRequestService($hash)
-                ->makeHttpRequest("POST", $endpoint, $body);
+                ->makeHttpRequest('POST', $endpoint, $body);
         } catch (GuzzleException $e) {
             return $e->getMessage();
         } catch (Exceptions\IsNullException $e) {
@@ -332,22 +331,22 @@ class Paga
     public function moneyTransferBulk()
     {
         $body = [
-            "bulkReferenceNumber" => request()->bulkReferenceNumber,
-            "items" => request()->moneyTransferItems
+            'bulkReferenceNumber' => request()->bulkReferenceNumber,
+            'items' => request()->moneyTransferItems,
         ];
 
         $hash = createHash($this->apiKey, [
-            $body["items"][0]["referenceNumber"],
-            $body["items"][0]["amount"],
-            $body["items"][0]["destinationAccount"],
-            count($body["items"])
+            $body['items'][0]['referenceNumber'],
+            $body['items'][0]['amount'],
+            $body['items'][0]['destinationAccount'],
+            count($body['items']),
         ]);
 
-        $endpoint = "paga-webservices/business-rest/secured/moneyTransferBulk";
+        $endpoint = 'paga-webservices/business-rest/secured/moneyTransferBulk';
 
         try {
             return $this->setRequestService($hash)
-                ->makeHttpRequest("POST", $endpoint, $body);
+                ->makeHttpRequest('POST', $endpoint, $body);
         } catch (GuzzleException $e) {
             return $e->getMessage();
         } catch (Exceptions\IsNullException $e) {
@@ -363,18 +362,18 @@ class Paga
     public function airtimePurchase()
     {
         $body = [
-            "referenceNumber" => request()->reference,
-            "amount" => request()->amount,
-            "destinationPhoneNumber" => request()->destinationPhoneNumber,
+            'referenceNumber' => request()->reference,
+            'amount' => request()->amount,
+            'destinationPhoneNumber' => request()->destinationPhoneNumber,
         ];
 
         $hash = createHash($this->apiKey, $body);
 
-        $endpoint = "paga-webservices/business-rest/secured/airtimePurchase";
+        $endpoint = 'paga-webservices/business-rest/secured/airtimePurchase';
 
         try {
             return $this->setRequestService($hash)
-                ->makeHttpRequest("POST", $endpoint, $body);
+                ->makeHttpRequest('POST', $endpoint, $body);
         } catch (GuzzleException $e) {
             return $e->getMessage();
         } catch (Exceptions\IsNullException $e) {
@@ -390,16 +389,16 @@ class Paga
     public function accountBalance()
     {
         $body = [
-            "referenceNumber" => request()->reference
+            'referenceNumber' => request()->reference,
         ];
 
         $hash = createHash($this->apiKey, $body);
 
-        $endpoint = "paga-webservices/business-rest/secured/accountBalance";
+        $endpoint = 'paga-webservices/business-rest/secured/accountBalance';
 
         try {
             return $this->setRequestService($hash)
-                ->makeHttpRequest("POST", $endpoint, $body);
+                ->makeHttpRequest('POST', $endpoint, $body);
         } catch (GuzzleException $e) {
             return $e->getMessage();
         } catch (Exceptions\IsNullException $e) {
@@ -415,26 +414,26 @@ class Paga
     public function depositToBank()
     {
         $body = [
-            "referenceNumber" => request()->reference,
-            "amount" => request()->amount,
-            "destinationBankUUID" => request()->destinationBankUUID,
-            "destinationBankAccountNumber" => request()->destinationBankAccountNumber,
-            "recipientPhoneNumber" => request()->recipientPhoneNumber,
-            "currency" => request()->currency,
+            'referenceNumber' => request()->reference,
+            'amount' => request()->amount,
+            'destinationBankUUID' => request()->destinationBankUUID,
+            'destinationBankAccountNumber' => request()->destinationBankAccountNumber,
+            'recipientPhoneNumber' => request()->recipientPhoneNumber,
+            'currency' => request()->currency,
         ];
 
         $hash = createHash($this->apiKey, [
-            $body["referenceNumber"],
-            $body["amount"],
-            $body["destinationBankUUID"],
-            $body["destinationBankAccountNumber"],
+            $body['referenceNumber'],
+            $body['amount'],
+            $body['destinationBankUUID'],
+            $body['destinationBankAccountNumber'],
         ]);
 
-        $endpoint = "paga-webservices/business-rest/secured/depositToBank";
+        $endpoint = 'paga-webservices/business-rest/secured/depositToBank';
 
         try {
             return $this->setRequestService($hash)
-                ->makeHttpRequest("POST", $endpoint, $body);
+                ->makeHttpRequest('POST', $endpoint, $body);
         } catch (GuzzleException $e) {
             return $e->getMessage();
         } catch (Exceptions\IsNullException $e) {
@@ -450,19 +449,19 @@ class Paga
     public function validateDepositToBank()
     {
         $body = [
-            "referenceNumber" => request()->reference,
-            "amount" => request()->amount,
-            "destinationBankUUID" => request()->destinationBankUUID,
-            "destinationBankAccountNumber" => request()->destinationBankAccountNumber,
+            'referenceNumber' => request()->reference,
+            'amount' => request()->amount,
+            'destinationBankUUID' => request()->destinationBankUUID,
+            'destinationBankAccountNumber' => request()->destinationBankAccountNumber,
         ];
 
         $hash = createHash($this->apiKey, $body);
 
-        $endpoint = "paga-webservices/business-rest/secured/validateDepositToBank";
+        $endpoint = 'paga-webservices/business-rest/secured/validateDepositToBank';
 
         try {
             return $this->setRequestService($hash)
-                ->makeHttpRequest("POST", $endpoint, $body);
+                ->makeHttpRequest('POST', $endpoint, $body);
         } catch (GuzzleException $e) {
             return $e->getMessage();
         } catch (Exceptions\IsNullException $e) {
@@ -478,26 +477,26 @@ class Paga
     public function merchantPayment()
     {
         $body = [
-            "referenceNumber" => request()->reference,
-            "amount" => request()->amount,
-            "merchantAccount" => request()->merchantAccount,
-            "merchantReferenceNumber" => request()->merchantReferenceNumber,
-            "currency" => request()->currency,
-            "merchantService" => request()->merchantService,
+            'referenceNumber' => request()->reference,
+            'amount' => request()->amount,
+            'merchantAccount' => request()->merchantAccount,
+            'merchantReferenceNumber' => request()->merchantReferenceNumber,
+            'currency' => request()->currency,
+            'merchantService' => request()->merchantService,
         ];
 
         $hash = createHash($this->apiKey, [
-            $body["referenceNumber"],
-            $body["amount"],
-            $body["merchantAccount"],
-            $body["merchantReferenceNumber"]
+            $body['referenceNumber'],
+            $body['amount'],
+            $body['merchantAccount'],
+            $body['merchantReferenceNumber'],
         ]);
 
-        $endpoint = "paga-webservices/business-rest/secured/merchantPayment";
+        $endpoint = 'paga-webservices/business-rest/secured/merchantPayment';
 
         try {
             return $this->setRequestService($hash)
-                ->makeHttpRequest("POST", $endpoint, $body);
+                ->makeHttpRequest('POST', $endpoint, $body);
         } catch (GuzzleException $e) {
             return $e->getMessage();
         } catch (Exceptions\IsNullException $e) {
@@ -514,16 +513,16 @@ class Paga
     public function transactionHistory()
     {
         $body = [
-            "referenceNumber" => request()->reference
+            'referenceNumber' => request()->reference,
         ];
 
         $hash = createHash($this->apiKey, $body);
 
-        $endpoint = "paga-webservices/business-rest/secured/transactionHistory";
+        $endpoint = 'paga-webservices/business-rest/secured/transactionHistory';
 
         try {
             return $this->setRequestService($hash)
-                ->makeHttpRequest("POST", $endpoint, $body);
+                ->makeHttpRequest('POST', $endpoint, $body);
         } catch (GuzzleException $e) {
             return $e->getMessage();
         } catch (Exceptions\IsNullException $e) {
@@ -540,16 +539,16 @@ class Paga
     public function recentTransactionHistory()
     {
         $body = [
-            "referenceNumber" => request()->reference
+            'referenceNumber' => request()->reference,
         ];
 
         $hash = createHash($this->apiKey, $body);
 
-        $endpoint = "paga-webservices/business-rest/secured/recentTransactionHistory";
+        $endpoint = 'paga-webservices/business-rest/secured/recentTransactionHistory';
 
         try {
             return $this->setRequestService($hash)
-                ->makeHttpRequest("POST", $endpoint, $body);
+                ->makeHttpRequest('POST', $endpoint, $body);
         } catch (GuzzleException $e) {
             return $e->getMessage();
         } catch (Exceptions\IsNullException $e) {
@@ -565,22 +564,22 @@ class Paga
     public function onBoardMerchant()
     {
         $body = [
-            "reference" => request()->reference,
-            "merchantExternalId" => request()->merchantExternalId,
-            "merchantInfo" => request()->merchantInfo,
-            "integration" => request()->integration,
+            'reference' => request()->reference,
+            'merchantExternalId' => request()->merchantExternalId,
+            'merchantInfo' => request()->merchantInfo,
+            'integration' => request()->integration,
         ];
 
         $hash = createHash($this->apiKey, [
-            $body["reference"],
-            $body["merchantExternalId"]
+            $body['reference'],
+            $body['merchantExternalId'],
         ]);
 
-        $endpoint = "paga-webservices/business-rest/secured/onboardMerchant";
+        $endpoint = 'paga-webservices/business-rest/secured/onboardMerchant';
 
         try {
             return $this->setRequestService($hash)
-                ->makeHttpRequest("POST", $endpoint, $body);
+                ->makeHttpRequest('POST', $endpoint, $body);
         } catch (GuzzleException $e) {
             return $e->getMessage();
         } catch (Exceptions\IsNullException $e) {
@@ -596,17 +595,17 @@ class Paga
     public function validateCustomer()
     {
         $body = [
-            "referenceNumber" => request()->reference,
-            "customerIdentifier" => request()->customerIdentifier,
+            'referenceNumber' => request()->reference,
+            'customerIdentifier' => request()->customerIdentifier,
         ];
 
         $hash = createHash($this->apiKey, $body);
 
-        $endpoint = "paga-webservices/business-rest/secured/validateCustomer";
+        $endpoint = 'paga-webservices/business-rest/secured/validateCustomer';
 
         try {
             return $this->setRequestService($hash)
-                ->makeHttpRequest("POST", $endpoint, $body);
+                ->makeHttpRequest('POST', $endpoint, $body);
         } catch (GuzzleException $e) {
             return $e->getMessage();
         } catch (Exceptions\IsNullException $e) {
