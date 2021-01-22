@@ -66,14 +66,6 @@ if (! function_exists('getHashedToken')) {
     }
 }
 
-if (! function_exists('hashArray')) {
-    function hashArray($actual, $discard)
-    {
-        foreach ($actual as $item) {
-        }
-    }
-}
-
 if (! function_exists('createHash')) {
     function createHash($apiKey, $body)
     {
