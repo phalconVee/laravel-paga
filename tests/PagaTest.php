@@ -25,7 +25,7 @@ class PagaTest extends TestCase
     protected function getPackageAliases($app)
     {
         return [
-            'Paga' => Paga::class
+            'Paga' => Paga::class,
         ];
     }
 
