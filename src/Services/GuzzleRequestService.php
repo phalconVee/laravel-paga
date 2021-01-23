@@ -87,7 +87,7 @@ class GuzzleRequestService
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
-    private function doGet($url, $body = [])
+    private function doGet($url, $body = [ ])
     {
         return $this->client->request('GET', $url, [
             'query' => $body,

@@ -27,7 +27,7 @@ class PagaServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/paga.php', 'paga');
 
         // Register the main class to use with the facade
-        $this->app->singleton('paga', function () {
+        $this->app->singleton('paga', function() {
             return new Paga();
         });
     }

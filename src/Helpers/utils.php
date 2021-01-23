@@ -59,7 +59,7 @@ if (!function_exists('getHashedToken')) {
         $token = '';
         $max = strlen(getPool());
         for ($i = 0; $i < $length; $i++) {
-            $token .= getPool()[secureCrypt(0, $max)];
+            $token .= getPool()[ secureCrypt(0, $max) ];
         }
 
         return $token;

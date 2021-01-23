@@ -270,10 +270,10 @@ class Paga
         ];
 
         $hash = createHash($this->apiKey, [
-            $body['referenceNumber'],
-            $body['customerPhoneNumber'],
-            $body['customerFirstName'],
-            $body['customerLastName'],
+            $body[ 'referenceNumber' ],
+            $body[ 'customerPhoneNumber' ],
+            $body[ 'customerFirstName' ],
+            $body[ 'customerLastName' ],
         ]);
 
         $endpoint = 'paga-webservices/business-rest/secured/registerCustomer';
@@ -289,7 +289,7 @@ class Paga
     }
 
     /**
-     * Enables verified 3rd party transfer funds from a variety of sources via Paga.
+     * Transfer funds from a variety of sources via Paga.
      *
      * @return mixed|\Psr\Http\Message\ResponseInterface|string|null
      */
@@ -312,9 +312,9 @@ class Paga
         ];
 
         $hash = createHash($this->apiKey, [
-            $body['referenceNumber'],
-            $body['amount'],
-            $body['destinationAccount'],
+            $body[ 'referenceNumber' ],
+            $body[ 'amount' ],
+            $body[ 'destinationAccount' ],
         ]);
 
         $endpoint = 'paga-webservices/business-rest/secured/moneyTransfer';
@@ -342,10 +342,10 @@ class Paga
         ];
 
         $hash = createHash($this->apiKey, [
-            $body['items'][0]['referenceNumber'],
-            $body['items'][0]['amount'],
-            $body['items'][0]['destinationAccount'],
-            count($body['items']),
+            $body[ 'items' ][ 0 ][ 'referenceNumber' ],
+            $body[ 'items' ][ 0 ][ 'amount' ],
+            $body[ 'items' ][ 0 ][ 'destinationAccount' ],
+            count($body[ 'items' ]),
         ]);
 
         $endpoint = 'paga-webservices/business-rest/secured/moneyTransferBulk';
@@ -361,7 +361,7 @@ class Paga
     }
 
     /**
-     * Enables verified 3rd party purchase airtime via Paga.
+     * Purchase airtime via Paga.
      *
      * @return mixed|\Psr\Http\Message\ResponseInterface|string|null
      */
@@ -429,10 +429,10 @@ class Paga
         ];
 
         $hash = createHash($this->apiKey, [
-            $body['referenceNumber'],
-            $body['amount'],
-            $body['destinationBankUUID'],
-            $body['destinationBankAccountNumber'],
+            $body[ 'referenceNumber' ],
+            $body[ 'amount' ],
+            $body[ 'destinationBankUUID' ],
+            $body[ 'destinationBankAccountNumber' ],
         ]);
 
         $endpoint = 'paga-webservices/business-rest/secured/depositToBank';
@@ -577,8 +577,8 @@ class Paga
         ];
 
         $hash = createHash($this->apiKey, [
-            $body['reference'],
-            $body['merchantExternalId'],
+            $body[ 'reference' ],
+            $body[ 'merchantExternalId' ],
         ]);
 
         $endpoint = 'paga-webservices/business-rest/secured/onboardMerchant';
@@ -594,7 +594,7 @@ class Paga
     }
 
     /**
-     * Valdiate customer created on Paga.
+     * Validate customer created on Paga.
      *
      * @return mixed|\Psr\Http\Message\ResponseInterface|string|null
      */
