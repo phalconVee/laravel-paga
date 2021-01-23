@@ -1,6 +1,6 @@
 <?php
 
-if (! function_exists('getPool')) {
+if (!function_exists('getPool')) {
     function getPool($type = 'distinct')
     {
         switch ($type) {
@@ -31,7 +31,7 @@ if (! function_exists('getPool')) {
     }
 }
 
-if (! function_exists('secureCrypt')) {
+if (!function_exists('secureCrypt')) {
     function secureCrypt($min, $max)
     {
         $range = $max - $min;
@@ -53,7 +53,7 @@ if (! function_exists('secureCrypt')) {
     }
 }
 
-if (! function_exists('getHashedToken')) {
+if (!function_exists('getHashedToken')) {
     function getHashedToken($length = 25)
     {
         $token = '';
@@ -66,7 +66,7 @@ if (! function_exists('getHashedToken')) {
     }
 }
 
-if (! function_exists('createHash')) {
+if (!function_exists('createHash')) {
     function createHash($apiKey, $body)
     {
         $hash = '';
@@ -80,7 +80,7 @@ if (! function_exists('createHash')) {
     }
 }
 
-if (! function_exists('paga')) {
+if (!function_exists('paga')) {
     function paga()
     {
         return app()->make('paga');
