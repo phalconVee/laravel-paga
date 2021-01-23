@@ -492,10 +492,10 @@ class Paga
         ];
 
         $hash = createHash($this->apiKey, [
-            $body['referenceNumber'],
-            $body['amount'],
-            $body['merchantAccount'],
-            $body['merchantReferenceNumber'],
+            $body[ 'referenceNumber' ],
+            $body[ 'amount' ],
+            $body[ 'merchantAccount' ],
+            $body[ 'merchantReferenceNumber' ],
         ]);
 
         $endpoint = 'paga-webservices/business-rest/secured/merchantPayment';
