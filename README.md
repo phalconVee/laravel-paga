@@ -50,6 +50,7 @@ A configuration-file named `paga.php` with some defaults will be placed in your 
 ```php
 <?php
 return [
+
     /**
      * API Key From Paga Dashboard
      */
@@ -64,6 +65,7 @@ return [
      * Secret Key / Credentials From Paga Dashboard
      */
     'secretKey' => env('PAGA_SECRET_KEY')
+
 ];
 ```
 
@@ -104,7 +106,7 @@ You'll need to initialize the server environment you intend to run your request 
 
 There's both the *test* and *live* environment. Your credentials will be authenticated against the enironment you initialize.
 
-It is recommended to initialize this environemnt in your constructor when using this package within a controller class.
+It is recommended to initialize this environment in your constructor when using this package within a controller class.
 
 ```php
 <?php
