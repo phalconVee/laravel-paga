@@ -95,23 +95,6 @@ class GuzzleRequestService
     }
 
     /**
-     * Make POST Client Request.
-     *
-     * @param $url
-     * @param $body
-     *
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     *
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    private function doPost($url, $body)
-    {
-        return $this->client->request('POST', $url, [
-            'form_params' => $body,
-        ]);
-    }
-
-    /**
      * Make Raw POST Client Request.
      *
      * @param $url

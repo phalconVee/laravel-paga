@@ -1,6 +1,7 @@
 # laravel-paga
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/phalconvee/laravel-paga.svg?style=flat-square)](https://packagist.org/packages/phalconvee/laravel-paga)
+![Packagist License](https://img.shields.io/packagist/l/paga/paga-business?style=flat-square)
 [![Build Status](https://img.shields.io/travis/phalconvee/laravel-paga/master.svg?style=flat-square)](https://travis-ci.org/phalconvee/laravel-paga)
 [![Quality Score](https://img.shields.io/scrutinizer/g/phalconvee/laravel-paga.svg?style=flat-square)](https://scrutinizer-ci.com/g/phalconvee/laravel-paga)
 [![Total Downloads](https://img.shields.io/packagist/dt/phalconvee/laravel-paga.svg?style=flat-square)](https://packagist.org/packages/phalconvee/laravel-paga)
@@ -8,7 +9,7 @@
 A Laravel package for working with the Paga Business API.
 
 ## Installation
-[PHP](https://php.net) 5.4+, and [Composer](https://getcomposer.org) are required.]
+[PHP](https://php.net) 5.4+, and [Composer](https://getcomposer.org) are required.
 
 You can get the latest version of Laravel Paga via composer:
 
@@ -83,6 +84,7 @@ return [
 - transactionHistory
 - recentTransactionHistory
 - registerCustomer
+- validateCustomer
 
 ## Usage
 Open your .env file and add your api key, public key, and secret key/credentials like so:

@@ -17,47 +17,47 @@ use Phalconvee\Paga\Services\GuzzleRequestService;
 class Paga
 {
     /**
-     * Issue API Key from your Paga Dashboard.
+     * Issue API key from your Paga dashboard.
      *
      * @var string
      */
     protected $apiKey;
 
     /**
-     * Issue Public Key from your Paga Dashboard.
+     * Issue public key from your Paga dashboard.
      *
      * @var string
      */
     protected $publicKey;
 
     /**
-     * Issue Password from your Paga Dashboard.
+     * Issue password from your Paga Dashboard.
      *
      * @var string
      */
     protected $secretKey;
 
     /**
-     * Set Server URL (e.g true = Use Test URL, false = Use Live URL).
+     * Set server URL (e.g true = Use Test URL, false = Use Live URL).
      *
      * @var string
      */
     protected $url;
 
     /**
-     *  Response from requests made to Paga.
+     * Response from requests made to Paga.
      *
      * @var mixed
      */
     protected $response;
 
     /**
-     * Define Live API URL.
+     * Define live API URL.
      */
     const LIVE_API_URL = 'https://www.mypaga.com';
 
     /**
-     * Define Test API url.
+     * Define test API URL.
      */
     const TEST_API_URL = 'https://beta.mypaga.com';
 
@@ -80,7 +80,7 @@ class Paga
     }
 
     /**
-     * Get Public key from Paga config file.
+     * Get public key from Paga config file.
      */
     private function setPublicKey()
     {
@@ -88,7 +88,7 @@ class Paga
     }
 
     /**
-     * Get Secret Key from Paga config file.
+     * Get secret key from Paga config file.
      */
     private function setSecretKey()
     {
@@ -96,7 +96,7 @@ class Paga
     }
 
     /**
-     * Set App Environment.
+     * Set server environment.
      *
      * @param bool $test
      */
@@ -106,7 +106,7 @@ class Paga
     }
 
     /**
-     * Set Service for making the Client request.
+     * Set service for making the client request.
      *
      * @param $hash
      *
@@ -131,6 +131,8 @@ class Paga
      * Return list of banks integrated with Paga.
      *
      * @return mixed|\Psr\Http\Message\ResponseInterface|string|null
+     * @throws Exceptions\IsNullException
+     * @throws GuzzleException
      */
     public function getBanks()
     {
@@ -142,20 +144,16 @@ class Paga
 
         $endpoint = 'paga-webservices/business-rest/secured/getBanks';
 
-        try {
-            return $this->setRequestService($hash)
-                ->makeHttpRequest('POST', $endpoint, $body);
-        } catch (GuzzleException $e) {
-            return $e->getMessage();
-        } catch (Exceptions\IsNullException $e) {
-            return $e->getMessage();
-        }
+        return $this->setRequestService($hash)
+            ->makeHttpRequest('POST', $endpoint, $body);
     }
 
     /**
      * Return list of merchants integrated with Paga.
      *
      * @return mixed|\Psr\Http\Message\ResponseInterface|string|null
+     * @throws Exceptions\IsNullException
+     * @throws GuzzleException
      */
     public function getMerchants()
     {
@@ -167,20 +165,16 @@ class Paga
 
         $endpoint = 'paga-webservices/business-rest/secured/getMerchants';
 
-        try {
-            return $this->setRequestService($hash)
-                ->makeHttpRequest('POST', $endpoint, $body);
-        } catch (GuzzleException $e) {
-            return $e->getMessage();
-        } catch (Exceptions\IsNullException $e) {
-            return $e->getMessage();
-        }
+        return $this->setRequestService($hash)
+            ->makeHttpRequest('POST', $endpoint, $body);
     }
 
     /**
      * Return merchant services registered on Paga.
      *
      * @return mixed|\Psr\Http\Message\ResponseInterface|string|null
+     * @throws Exceptions\IsNullException
+     * @throws GuzzleException
      */
     public function getMerchantServices()
     {
@@ -193,45 +187,16 @@ class Paga
 
         $endpoint = 'paga-webservices/business-rest/secured/getMerchantServices';
 
-        try {
-            return $this->setRequestService($hash)
-                ->makeHttpRequest('POST', $endpoint, $body);
-        } catch (GuzzleException $e) {
-            return $e->getMessage();
-        } catch (Exceptions\IsNullException $e) {
-            return $e->getMessage();
-        }
-    }
-
-    /**
-     * Return operation status per transaction.
-     *
-     * @return mixed|\Psr\Http\Message\ResponseInterface|string|null
-     */
-    public function getOperationStatus()
-    {
-        $body = [
-            'referenceNumber' => request()->reference,
-        ];
-
-        $hash = createHash($this->apiKey, $body);
-
-        $endpoint = 'paga-webservices/business-rest/secured/getOperationStatus';
-
-        try {
-            return $this->setRequestService($hash)
-                ->makeHttpRequest('POST', $endpoint, $body);
-        } catch (GuzzleException $e) {
-            return $e->getMessage();
-        } catch (Exceptions\IsNullException $e) {
-            return $e->getMessage();
-        }
+        return $this->setRequestService($hash)
+            ->makeHttpRequest('POST', $endpoint, $body);
     }
 
     /**
      * Return mobile operators on the Paga platform.
      *
      * @return mixed|\Psr\Http\Message\ResponseInterface|string|null
+     * @throws Exceptions\IsNullException
+     * @throws GuzzleException
      */
     public function getMobileOperators()
     {
@@ -243,55 +208,136 @@ class Paga
 
         $endpoint = 'paga-webservices/business-rest/secured/getMobileOperators';
 
-        try {
-            return $this->setRequestService($hash)
-                ->makeHttpRequest('POST', $endpoint, $body);
-        } catch (GuzzleException $e) {
-            return $e->getMessage();
-        } catch (Exceptions\IsNullException $e) {
-            return $e->getMessage();
-        }
+        return $this->setRequestService($hash)
+            ->makeHttpRequest('POST', $endpoint, $body);
     }
 
     /**
-     * Register customers on Paga.
+     * Return operation status per transaction.
      *
      * @return mixed|\Psr\Http\Message\ResponseInterface|string|null
+     * @throws Exceptions\IsNullException
+     * @throws GuzzleException
      */
-    public function registerCustomer()
+    public function getOperationStatus()
     {
         $body = [
-            'referenceNumber'     => request()->reference,
-            'customerPhoneNumber' => request()->customerPhoneNumber,
-            'customerFirstName'   => request()->customerFirstName,
-            'customerLastName'    => request()->customerLastName,
-            'customerEmail'       => request()->customerEmail,
-            'customerDateOfBirth' => request()->customerDateOfBirth,
+            'referenceNumber' => request()->reference,
+        ];
+
+        $hash = createHash($this->apiKey, $body);
+
+        $endpoint = 'paga-webservices/business-rest/secured/getOperationStatus';
+
+        return $this->setRequestService($hash)
+            ->makeHttpRequest('POST', $endpoint, $body);
+    }
+
+    /**
+     * Get account balance on Paga.
+     *
+     * @return mixed|\Psr\Http\Message\ResponseInterface|string|null
+     * @throws Exceptions\IsNullException
+     * @throws GuzzleException
+     */
+    public function accountBalance()
+    {
+        $body = [
+            'referenceNumber' => request()->reference,
+        ];
+
+        $hash = createHash($this->apiKey, $body);
+
+        $endpoint = 'paga-webservices/business-rest/secured/accountBalance';
+
+        return $this->setRequestService($hash)
+            ->makeHttpRequest('POST', $endpoint, $body);
+    }
+
+    /**
+     * Purchase airtime via Paga.
+     *
+     * @return mixed|\Psr\Http\Message\ResponseInterface|string|null
+     * @throws Exceptions\IsNullException
+     * @throws GuzzleException
+     */
+    public function airtimePurchase()
+    {
+        $body = [
+            'referenceNumber'        => request()->reference,
+            'amount'                 => request()->amount,
+            'destinationPhoneNumber' => request()->destinationPhoneNumber,
+        ];
+
+        $hash = createHash($this->apiKey, $body);
+
+        $endpoint = 'paga-webservices/business-rest/secured/airtimePurchase';
+
+        return $this->setRequestService($hash)
+            ->makeHttpRequest('POST', $endpoint, $body);
+    }
+
+    /**
+     * Operation to deposit funds into any bank account via Paga.
+     *
+     * @return mixed|\Psr\Http\Message\ResponseInterface|string|null
+     * @throws Exceptions\IsNullException
+     * @throws GuzzleException
+     */
+    public function depositToBank()
+    {
+        $body = [
+            'referenceNumber'              => request()->reference,
+            'amount'                       => request()->amount,
+            'destinationBankUUID'          => request()->destinationBankUUID,
+            'destinationBankAccountNumber' => request()->destinationBankAccountNumber,
+            'recipientPhoneNumber'         => request()->recipientPhoneNumber,
+            'currency'                     => request()->currency,
         ];
 
         $hash = createHash($this->apiKey, [
-            $body[ 'referenceNumber' ],
-            $body[ 'customerPhoneNumber' ],
-            $body[ 'customerFirstName' ],
-            $body[ 'customerLastName' ],
+            $body['referenceNumber'],
+            $body['amount'],
+            $body['destinationBankUUID'],
+            $body['destinationBankAccountNumber'],
         ]);
 
-        $endpoint = 'paga-webservices/business-rest/secured/registerCustomer';
+        $endpoint = 'paga-webservices/business-rest/secured/depositToBank';
 
-        try {
-            return $this->setRequestService($hash)
-                ->makeHttpRequest('POST', $endpoint, $body);
-        } catch (GuzzleException $e) {
-            return $e->getMessage();
-        } catch (Exceptions\IsNullException $e) {
-            return $e->getMessage();
-        }
+        return $this->setRequestService($hash)
+            ->makeHttpRequest('POST', $endpoint, $body);
+    }
+
+    /**
+     * Validate deposit operation to bank via Paga.
+     *
+     * @return mixed|\Psr\Http\Message\ResponseInterface|string|null
+     * @throws Exceptions\IsNullException
+     * @throws GuzzleException
+     */
+    public function validateDepositToBank()
+    {
+        $body = [
+            'referenceNumber'              => request()->reference,
+            'amount'                       => request()->amount,
+            'destinationBankUUID'          => request()->destinationBankUUID,
+            'destinationBankAccountNumber' => request()->destinationBankAccountNumber,
+        ];
+
+        $hash = createHash($this->apiKey, $body);
+
+        $endpoint = 'paga-webservices/business-rest/secured/validateDepositToBank';
+
+        return $this->setRequestService($hash)
+            ->makeHttpRequest('POST', $endpoint, $body);
     }
 
     /**
      * Transfer funds from a variety of sources via Paga.
      *
      * @return mixed|\Psr\Http\Message\ResponseInterface|string|null
+     * @throws Exceptions\IsNullException
+     * @throws GuzzleException
      */
     public function moneyTransfer()
     {
@@ -312,27 +358,23 @@ class Paga
         ];
 
         $hash = createHash($this->apiKey, [
-            $body[ 'referenceNumber' ],
-            $body[ 'amount' ],
-            $body[ 'destinationAccount' ],
+            $body['referenceNumber'],
+            $body['amount'],
+            $body['destinationAccount'],
         ]);
 
         $endpoint = 'paga-webservices/business-rest/secured/moneyTransfer';
 
-        try {
-            return $this->setRequestService($hash)
-                ->makeHttpRequest('POST', $endpoint, $body);
-        } catch (GuzzleException $e) {
-            return $e->getMessage();
-        } catch (Exceptions\IsNullException $e) {
-            return $e->getMessage();
-        }
+        return $this->setRequestService($hash)
+            ->makeHttpRequest('POST', $endpoint, $body);
     }
 
     /**
      * Make bulk money transfer via Paga.
      *
      * @return mixed|\Psr\Http\Message\ResponseInterface|string|null
+     * @throws Exceptions\IsNullException
+     * @throws GuzzleException
      */
     public function moneyTransferBulk()
     {
@@ -342,143 +384,51 @@ class Paga
         ];
 
         $hash = createHash($this->apiKey, [
-            $body[ 'items' ][ 0 ][ 'referenceNumber' ],
-            $body[ 'items' ][ 0 ][ 'amount' ],
-            $body[ 'items' ][ 0 ][ 'destinationAccount' ],
-            count($body[ 'items' ]),
+            $body['items'][0]['referenceNumber'],
+            $body['items'][0]['amount'],
+            $body['items'][0]['destinationAccount'],
+            count($body['items']),
         ]);
 
         $endpoint = 'paga-webservices/business-rest/secured/moneyTransferBulk';
 
-        try {
-            return $this->setRequestService($hash)
-                ->makeHttpRequest('POST', $endpoint, $body);
-        } catch (GuzzleException $e) {
-            return $e->getMessage();
-        } catch (Exceptions\IsNullException $e) {
-            return $e->getMessage();
-        }
+        return $this->setRequestService($hash)
+            ->makeHttpRequest('POST', $endpoint, $body);
     }
 
     /**
-     * Purchase airtime via Paga.
+     * OnBoard merchant -> create sub organizations on Paga.
      *
      * @return mixed|\Psr\Http\Message\ResponseInterface|string|null
+     * @throws Exceptions\IsNullException
+     * @throws GuzzleException
      */
-    public function airtimePurchase()
+    public function onBoardMerchant()
     {
         $body = [
-            'referenceNumber'        => request()->reference,
-            'amount'                 => request()->amount,
-            'destinationPhoneNumber' => request()->destinationPhoneNumber,
-        ];
-
-        $hash = createHash($this->apiKey, $body);
-
-        $endpoint = 'paga-webservices/business-rest/secured/airtimePurchase';
-
-        try {
-            return $this->setRequestService($hash)
-                ->makeHttpRequest('POST', $endpoint, $body);
-        } catch (GuzzleException $e) {
-            return $e->getMessage();
-        } catch (Exceptions\IsNullException $e) {
-            return $e->getMessage();
-        }
-    }
-
-    /**
-     * Get account balance on Paga.
-     *
-     * @return mixed|\Psr\Http\Message\ResponseInterface|string|null
-     */
-    public function accountBalance()
-    {
-        $body = [
-            'referenceNumber' => request()->reference,
-        ];
-
-        $hash = createHash($this->apiKey, $body);
-
-        $endpoint = 'paga-webservices/business-rest/secured/accountBalance';
-
-        try {
-            return $this->setRequestService($hash)
-                ->makeHttpRequest('POST', $endpoint, $body);
-        } catch (GuzzleException $e) {
-            return $e->getMessage();
-        } catch (Exceptions\IsNullException $e) {
-            return $e->getMessage();
-        }
-    }
-
-    /**
-     * Operation to deposit funds into any bank account via Paga.
-     *
-     * @return mixed|\Psr\Http\Message\ResponseInterface|string|null
-     */
-    public function depositToBank()
-    {
-        $body = [
-            'referenceNumber'              => request()->reference,
-            'amount'                       => request()->amount,
-            'destinationBankUUID'          => request()->destinationBankUUID,
-            'destinationBankAccountNumber' => request()->destinationBankAccountNumber,
-            'recipientPhoneNumber'         => request()->recipientPhoneNumber,
-            'currency'                     => request()->currency,
+            'reference'          => request()->reference,
+            'merchantExternalId' => request()->merchantExternalId,
+            'merchantInfo'       => request()->merchantInfo,
+            'integration'        => request()->integration,
         ];
 
         $hash = createHash($this->apiKey, [
-            $body[ 'referenceNumber' ],
-            $body[ 'amount' ],
-            $body[ 'destinationBankUUID' ],
-            $body[ 'destinationBankAccountNumber' ],
+            $body['reference'],
+            $body['merchantExternalId'],
         ]);
 
-        $endpoint = 'paga-webservices/business-rest/secured/depositToBank';
+        $endpoint = 'paga-webservices/business-rest/secured/onboardMerchant';
 
-        try {
-            return $this->setRequestService($hash)
-                ->makeHttpRequest('POST', $endpoint, $body);
-        } catch (GuzzleException $e) {
-            return $e->getMessage();
-        } catch (Exceptions\IsNullException $e) {
-            return $e->getMessage();
-        }
-    }
-
-    /**
-     * Validate deposit operation to bank via Paga.
-     *
-     * @return mixed|\Psr\Http\Message\ResponseInterface|string|null
-     */
-    public function validateDepositToBank()
-    {
-        $body = [
-            'referenceNumber'              => request()->reference,
-            'amount'                       => request()->amount,
-            'destinationBankUUID'          => request()->destinationBankUUID,
-            'destinationBankAccountNumber' => request()->destinationBankAccountNumber,
-        ];
-
-        $hash = createHash($this->apiKey, $body);
-
-        $endpoint = 'paga-webservices/business-rest/secured/validateDepositToBank';
-
-        try {
-            return $this->setRequestService($hash)
-                ->makeHttpRequest('POST', $endpoint, $body);
-        } catch (GuzzleException $e) {
-            return $e->getMessage();
-        } catch (Exceptions\IsNullException $e) {
-            return $e->getMessage();
-        }
+        return $this->setRequestService($hash)
+            ->makeHttpRequest('POST', $endpoint, $body);
     }
 
     /**
      * Make payments to registered merchants on Paga.
      *
      * @return mixed|\Psr\Http\Message\ResponseInterface|string|null
+     * @throws Exceptions\IsNullException
+     * @throws GuzzleException
      */
     public function merchantPayment()
     {
@@ -500,14 +450,8 @@ class Paga
 
         $endpoint = 'paga-webservices/business-rest/secured/merchantPayment';
 
-        try {
-            return $this->setRequestService($hash)
-                ->makeHttpRequest('POST', $endpoint, $body);
-        } catch (GuzzleException $e) {
-            return $e->getMessage();
-        } catch (Exceptions\IsNullException $e) {
-            return $e->getMessage();
-        }
+        return $this->setRequestService($hash)
+            ->makeHttpRequest('POST', $endpoint, $body);
     }
 
     /**
@@ -515,6 +459,8 @@ class Paga
      * Pass a transaction reference to fetch a specific transaction.
      *
      * @return mixed|\Psr\Http\Message\ResponseInterface|string|null
+     * @throws Exceptions\IsNullException
+     * @throws GuzzleException
      */
     public function transactionHistory()
     {
@@ -526,14 +472,8 @@ class Paga
 
         $endpoint = 'paga-webservices/business-rest/secured/transactionHistory';
 
-        try {
-            return $this->setRequestService($hash)
-                ->makeHttpRequest('POST', $endpoint, $body);
-        } catch (GuzzleException $e) {
-            return $e->getMessage();
-        } catch (Exceptions\IsNullException $e) {
-            return $e->getMessage();
-        }
+        return $this->setRequestService($hash)
+            ->makeHttpRequest('POST', $endpoint, $body);
     }
 
     /**
@@ -541,6 +481,8 @@ class Paga
      * Return last 5 transactions on their Paga account.
      *
      * @return mixed|\Psr\Http\Message\ResponseInterface|string|null
+     * @throws Exceptions\IsNullException
+     * @throws GuzzleException
      */
     public function recentTransactionHistory()
     {
@@ -552,51 +494,47 @@ class Paga
 
         $endpoint = 'paga-webservices/business-rest/secured/recentTransactionHistory';
 
-        try {
-            return $this->setRequestService($hash)
-                ->makeHttpRequest('POST', $endpoint, $body);
-        } catch (GuzzleException $e) {
-            return $e->getMessage();
-        } catch (Exceptions\IsNullException $e) {
-            return $e->getMessage();
-        }
+        return $this->setRequestService($hash)
+            ->makeHttpRequest('POST', $endpoint, $body);
     }
 
     /**
-     * OnBoard merchant -> create sub organizations on Paga.
+     * Register customers on Paga.
      *
      * @return mixed|\Psr\Http\Message\ResponseInterface|string|null
+     * @throws Exceptions\IsNullException
+     * @throws GuzzleException
      */
-    public function onBoardMerchant()
+    public function registerCustomer()
     {
         $body = [
-            'reference'          => request()->reference,
-            'merchantExternalId' => request()->merchantExternalId,
-            'merchantInfo'       => request()->merchantInfo,
-            'integration'        => request()->integration,
+            'referenceNumber'     => request()->reference,
+            'customerPhoneNumber' => request()->customerPhoneNumber,
+            'customerFirstName'   => request()->customerFirstName,
+            'customerLastName'    => request()->customerLastName,
+            'customerEmail'       => request()->customerEmail,
+            'customerDateOfBirth' => request()->customerDateOfBirth,
         ];
 
         $hash = createHash($this->apiKey, [
-            $body[ 'reference' ],
-            $body[ 'merchantExternalId' ],
+            $body['referenceNumber'],
+            $body['customerPhoneNumber'],
+            $body['customerFirstName'],
+            $body['customerLastName'],
         ]);
 
-        $endpoint = 'paga-webservices/business-rest/secured/onboardMerchant';
+        $endpoint = 'paga-webservices/business-rest/secured/registerCustomer';
 
-        try {
-            return $this->setRequestService($hash)
-                ->makeHttpRequest('POST', $endpoint, $body);
-        } catch (GuzzleException $e) {
-            return $e->getMessage();
-        } catch (Exceptions\IsNullException $e) {
-            return $e->getMessage();
-        }
+        return $this->setRequestService($hash)
+            ->makeHttpRequest('POST', $endpoint, $body);
     }
 
     /**
      * Validate customer created on Paga.
      *
      * @return mixed|\Psr\Http\Message\ResponseInterface|string|null
+     * @throws Exceptions\IsNullException
+     * @throws GuzzleException
      */
     public function validateCustomer()
     {
@@ -609,13 +547,7 @@ class Paga
 
         $endpoint = 'paga-webservices/business-rest/secured/validateCustomer';
 
-        try {
-            return $this->setRequestService($hash)
-                ->makeHttpRequest('POST', $endpoint, $body);
-        } catch (GuzzleException $e) {
-            return $e->getMessage();
-        } catch (Exceptions\IsNullException $e) {
-            return $e->getMessage();
-        }
+        return $this->setRequestService($hash)
+            ->makeHttpRequest('POST', $endpoint, $body);
     }
 }
