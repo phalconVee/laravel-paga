@@ -88,7 +88,7 @@ Check [README](README.md) for details.
     // Bulk Money Transfer
     $items = [
         [
-            'referenceNumber' => $reference,
+            'referenceNumber' => "TNXID_".Paga::getTransactionReference(),
             'amount' => 500.00,
             'currency' => 'NGN',
             'destinationAccount' => "08030408527",
@@ -101,7 +101,7 @@ Check [README](README.md) for details.
             'holding' => 31,
         ],
         [
-            'referenceNumber' => $reference,
+            'referenceNumber' => "TNXID_".Paga::getTransactionReference(),
             'amount' => 1000.00,
             'currency' => 'NGN',
             'destinationAccount' => "08060075922",
