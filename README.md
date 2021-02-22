@@ -98,7 +98,7 @@ PAGA_SECRET_KEY=xxxxxxxxxxxxxx
 If you are using a hosting service like AWS, heroku, ensure to add the above details to your environment variables and configuration variables respectively.
 
 ### 1. Prerequisites
-Confirm that your server can conclude a TLSv1.2 connection to Paga's servers. Most up-to-date software have theis capability. Contact your service provider for guidance if you have any SSL errors. 
+Confirm that your server can conclude a TLSv1.2 connection to Paga's servers. Most up-to-date software have this capability. Contact your service provider for guidance if you have any SSL errors. 
 *Don't disable SSL peer verification!*
 
 ### 2. Initialize server environment
